@@ -1,0 +1,24 @@
+Containers:
+  NGinx:
+    Scheduler: random
+    Instances:
+      Min: 1
+      Max: 5
+      Default: 3
+    Config:
+      Image: nginx:latest
+  logstash:
+    Scheduler: per-host
+    Instances:
+      Min: 1
+      Max: 1
+      Default: 1
+    Config:
+      Image: pblittle/docker-logstash:latest
+  redis:
+    Instances:
+      Min: 1
+      Max: 3
+      Default: 3
+    Config:
+      Image: redis:latest
