@@ -1,0 +1,31 @@
+Containers:
+  wp:
+    Instances:
+      Min: 1
+      Max: 1
+      Default: 1
+    Config:
+      Ports:
+      - Protocol: tcp
+        ContainerPort: :80
+        HostPort: :80
+      # always include :tag to prevent docker from downloading all tagged versions
+      Image: wordpress:latest
+      Env:
+        WORDPRESS_DB_HOST: 172.17.42.1
+        WORDPRESS_DB_PASSWORD: letmein
+            
+  db:
+    Instances:
+      Min: 1
+      Max: 1
+      Default: 1
+    Config:
+      Image: mariadb:latest
+      Ports:
+      - Protocol: tcp
+        ContainerPort: :3306
+        HostPort: :3306
+      Env:
+        MYSQL_ROOT_PASSWORD: letmein
+ 
