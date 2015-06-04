@@ -1,31 +1,31 @@
+# this yaml is compatible with 0.9 only
 Containers:
-  wp:
-    Instances:
-      Min: 1
-      Max: 1
-      Default: 1
+  Wordpress:
+    Scheduler: random
     Config:
-      Ports:
-      - Protocol: tcp
-        ContainerPort: :80
-        HostPort: :80
-      # always include :tag to prevent docker from downloading all tagged versions
-      Image: wordpress:latest
+      Image: "wordpress:latest"
       Env:
         WORDPRESS_DB_HOST: 172.17.42.1
         WORDPRESS_DB_PASSWORD: letmein
-            
-  db:
+      Ports:
+        - HostPort: 80
+          ContainerProtocol: tcp
+          ContainerPort: 80
     Instances:
       Min: 1
       Max: 1
       Default: 1
+  DB:
+    Scheduler: random
     Config:
-      Image: mariadb:latest
-      Ports:
-      - Protocol: tcp
-        ContainerPort: :3306
-        HostPort: :3306
+      Image: "mariadb:latest"
       Env:
         MYSQL_ROOT_PASSWORD: letmein
- 
+      Ports:
+        - HostPort: 3306
+          ContainerProtocol: tcp
+          ContainerPort: 3306
+    Instances:
+      Min: 1
+      Max: 1
+      Default: 1
