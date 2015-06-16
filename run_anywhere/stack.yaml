@@ -10,11 +10,11 @@
 # possible.
 containers:
   app:
-    # The scheduler can be one of:
-    #   random   - This scheduler picks a host at random to schedule each
-    #              desired instance. This is the default scheduler.
+    # The availability can be one of:
+    #   per-pool - The scheduler runs N instances of container in each pool.
     #   per-host - This scheduler runs N instances of container on each host
     #              the application it is deployed to.
+    availability: per-pool
     scheduler: random
     instances:
       min: 1
@@ -34,12 +34,14 @@ containers:
         DEBUG: "*"
       image: dgarcia/test-ws:latest
       volumes:
-      - host_path: /etc/ssl/certs
-        container_path: /etc/ssl/certs
-        readonly: true
+      - host_volume: /etc/ssl/certs
+        container_volume: /etc/ssl/certs
+        read_only: true
       working_dir: /
       labels:
         label: value
+    host_config:
+      privileged: true
       # see http://man7.org/linux/man-pages/man7/capabilities.7.html
       cap_add:
       - NET_ADMIN
@@ -47,5 +49,3 @@ containers:
       cap_drop:
       - CHOWN
       - MKNOD
-    host_config:
-      privileged: true
