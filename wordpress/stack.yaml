@@ -1,31 +1,31 @@
-# this yaml is compatible with 0.9 only
-Containers:
+# this yaml is compatible with 1.0 only
+containers:
   Wordpress:
-    Scheduler: random
-    Config:
-      Image: "wordpress:latest"
-      Env:
+    scheduler: random
+    config:
+      image: "wordpress:latest"
+      env:
         WORDPRESS_DB_HOST: 172.17.42.1
         WORDPRESS_DB_PASSWORD: letmein
-      Ports:
-        - HostPort: 80
-          ContainerProtocol: tcp
-          ContainerPort: 80
-    Instances:
-      Min: 1
-      Max: 1
-      Default: 1
+      ports:
+        - host_port: 80
+          protocol: tcp
+          container_port: 80
+    instances:
+      min: 1
+      max: 1
+      default: 1
   DB:
-    Scheduler: random
-    Config:
-      Image: "mariadb:latest"
-      Env:
+    scheduler: random
+    config:
+      image: "mariadb:latest"
+      env:
         MYSQL_ROOT_PASSWORD: letmein
-      Ports:
-        - HostPort: 3306
-          ContainerProtocol: tcp
-          ContainerPort: 3306
-    Instances:
-      Min: 1
-      Max: 1
-      Default: 1
+      ports:
+        - host_port: 3306
+          protocol: tcp
+          container_port: 3306
+    instances:
+      min: 1
+      max: 1
+      default: 1
